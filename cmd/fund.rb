@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# typed: true
+# typed: false
 # frozen_string_literal: true
 
 require "cli/parser"
@@ -38,7 +38,7 @@ module Homebrew
         # TODO: better way to get it from the parser
         package = subcommand
 
-        puts FundingMethodsResolver.suggest(package)
+        puts FundingMethodsResolver.suggest(package).to_s
 
         # raise UsageError, "unknown subcommand: #{subcommand}"
       end
