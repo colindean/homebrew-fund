@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# typed: true
 # frozen_string_literal: true
 
 require "cli/parser"
@@ -49,6 +50,7 @@ module Homebrew
       Homebrew.failed = true
     rescue RuntimeError, SystemCallError => e
       raise if e.message.empty?
+
       onoe e
       puts e.backtrace if args.debug?
       Homebrew.failed = true

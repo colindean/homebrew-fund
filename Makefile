@@ -2,6 +2,10 @@
 test: ## Run tests
 	bundle exec rspec
 
+.PHONY: check
+check: ## Run checks and lints
+	brew style colindean/fund --fix
+
 .PHONY: deps
 deps: deps-brew deps-precommit deps-ruby ## Install all dependencies
 

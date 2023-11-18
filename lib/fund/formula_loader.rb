@@ -1,8 +1,11 @@
+# typed: true
+# frozen_string_literal: true
+
 require "formula"
 require "tap"
 
 module FormulaLoader
   def self.get_formula(name)
-    return Formula[name]
+    Formula[name]
   end
 end
