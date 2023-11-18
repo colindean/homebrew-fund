@@ -1,10 +1,11 @@
+#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 require "cli/parser"
 module Homebrew
   module_function
 
-  def bundle_args
+  def fund_args
     Homebrew::CLI::Parser.new do
       usage_banner <<~EOS
         `fund` [<subcommand>]
@@ -16,11 +17,13 @@ module Homebrew
       EOS
       switch "-v", "--verbose",
              description: "Show what's being done"
+
+      named_args [:formula, :cask]
     end
   end
 
-  def bundle
-    args = bundle_args.parse
+  def fund
+    args = fund_args.parse
 
     # Keep this after the .parse to keep --help fast.
     # require_relative "../lib/fund"
