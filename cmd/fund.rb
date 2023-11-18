@@ -26,14 +26,20 @@ module Homebrew
     args = fund_args.parse
 
     # Keep this after the .parse to keep --help fast.
-    # require_relative "../lib/fund"
+    require_relative "../lib/fund"
 
     begin
       case subcommand = args.named.first.presence
       when nil, "fund"
-        odie "Unimplemented"
+        ohai "Usage: brew fund [package]"
+        # TODO: How to show usage defined in the parser?
       else
-        raise UsageError, "unknown subcommand: #{subcommand}"
+        # TODO: better way to get it from the parser
+        package = subcommand
+
+        puts FundingMethodsResolver.suggest(package)
+
+        # raise UsageError, "unknown subcommand: #{subcommand}"
       end
     rescue SystemExit => e
       Homebrew.failed = true unless e.success?
