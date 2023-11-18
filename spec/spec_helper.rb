@@ -30,7 +30,7 @@ SimpleCov.start do
   command_name "Job #{ENV["TEST_ENV_NUMBER"]}" if ENV["TEST_ENV_NUMBER"]
 end
 
-# may be unnecessary for homebrew-bundle, is present in brew spec_helper
+# may be unnecessary for homebrew-fund, is present in brew spec_helper
 if macos? && ENV["TEST_ENV_NUMBER"]
   SimpleCov.at_exit do
     result = SimpleCov.result
