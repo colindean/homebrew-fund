@@ -1,4 +1,4 @@
-# homebrew-fund
+# homebrew-fund [![CI](https://github.com/colindean/homebrew-fund/actions/workflows/tests.yml/badge.svg)](https://github.com/colindean/homebrew-fund/actions/workflows/tests.yml)
 
 :construction:
 This is a **WORK IN PROGRESS.**
@@ -18,9 +18,9 @@ TBD
 
 Run `brew fund` for online help, but normal usage is to pass a package in particular, e.g.
 
-    brew fund brew
+    brew fund curl
 
-will show potential places to fund the development of Homebrew itself.
+will show potential places to fund the development of [curl](https://formulae.brew.sh/formula/curl).
 
 ## Caveats
 
@@ -36,16 +36,30 @@ The heuristic could be wrong.
 
 In general, Homebrew-fund will always attempt to retrieve the least amount of data in order to make a reasonable guess at the right URL(s) to provide.
 
-1. If the project has a GitHub homepage or download link,
-   look at the project for a `FUNDING.yaml` in a few known places.
-2. Download the source archive and…
+1. :waning_gibbous_moon: If the project has a GitHub homepage or download link,
+   use the GitHub GraphQL API to retrieve the project's funding links, configured in `FUNDING.yaml` in a few known places.
+2. :new_moon: Download the source archive and…
     1. look for files such as `FUNDING.yaml`, `DONATIONS.md`, etc.
     2. look for a Donations section in a README
 
+Completion indicated by moon phases:
+|Icon|Meaning|
+|----|-------|
+|:new_moon:|Not started|
+|:waning_crescent_moon:|Started|
+|:waning_gibbous_moon:|Almost there, not thoroughly tested|
+|:full_moon:|Working as brightly as the moon in the night sky|
 
 ## Tests
 
 Tests can be run with `bundle install && bundle exec rspec`.
+
+## Contributing
+
+This repository defines a [DevContainers](https://containers.dev/) configuration that loads well in GitHub Codespaces and VSCode/VSCodium.
+
+Add tests to keep coverage above 70%.
+Once the app is 1.0, we'll ratchet coverage up toward 100%.
 
 ## Copyright
 
