@@ -10,5 +10,13 @@
       "PATH": "${containerEnv:PATH}:/home/linuxbrew/.linuxbrew/Homebrew/Library/Homebrew/vendor/portable-ruby/current/bin",
       "EDITOR": "code --wait",
       "VISUAL": "code --wait"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ryanluker.vscode-coverage-gutters",
+                "first-try-software.coverage-status"
+            ]
+        }
     }
   }
