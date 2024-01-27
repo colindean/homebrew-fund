@@ -37,3 +37,6 @@ fi
 
 # Start the SSH server so that `gh cs ssh` works.
 sudo service ssh start
+
+# Enable developer mode
+brew developer on
