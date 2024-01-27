@@ -3,13 +3,25 @@
 
 require "uri"
 
-module LookupMethodsResolver
-  def self.installed_lookup_methods
-    [GitHubSponsorsLookup, NoLookupAvailable].freeze
+require "singleton"
+
+class LookupMethodsResolver
+  include Singleton
+
+  def initialize
+    @lookup_methods = []
+  end
+
+  def installed_lookup_methods
+    @lookup_methods
+  end
+
+  def install_lookup_method(cls)
+    @lookup_methods << cls
   end
 
   sig { params(formula: Formula).returns(T::Hash[String, LookupMethodBase]) }
-  def self.resolve(formula)
+  def resolve(formula)
     data = collect_data(formula)
 
     data.transform_values do |url|
@@ -20,7 +32,7 @@ module LookupMethodsResolver
   end
 
   sig { params(formula: Formula).returns(T::Hash[Symbol, String]) }
-  def self.collect_data(formula)
+  def collect_data(formula)
     {
       homepage:   formula.homepage,
       stable_url: formula.stable&.url,

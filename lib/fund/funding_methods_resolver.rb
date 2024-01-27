@@ -10,7 +10,7 @@ module FundingMethodsResolver
 
     odebug "Got #{formula}, resolving possible methods of resolving funding methods"
 
-    methods = LookupMethodsResolver.resolve(formula)
+    methods = LookupMethodsResolver.instance.resolve(formula)
 
     ohai "Potential funding methods for #{formula}"
     methods.to_s
