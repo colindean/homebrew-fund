@@ -1,0 +1,5 @@
+--dir
+lib
+--disable-watchman
+--ignore=/tmp/
+--ignore=/vendor/bundle
