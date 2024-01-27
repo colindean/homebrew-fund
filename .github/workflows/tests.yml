@@ -46,4 +46,4 @@ jobs:
 
     - name: Test that a basic command works
       run: |
-        brew fund brew
+        brew fund curl
