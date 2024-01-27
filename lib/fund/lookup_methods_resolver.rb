@@ -5,6 +5,26 @@ require "uri"
 
 module LookupMethodsResolver
   class LookupMethod
+    sig { params(url: T.nilable(String)).returns(T.nilable(LookupMethod)) }
+    def self.try_from(url)
+      nil if url.nil?
+    end
+  end
+
+  class NothingAvailable < LookupMethod
+    sig { params(url: T.nilable(String)).returns(T.nilable(LookupMethod)) }
+    def self.try_from(url)
+      NothingAvailable.new(url)
+    end
+
+    def initialize(url)
+      super()
+      @url = url
+    end
+
+    def to_s
+      "no funding information available for #{@url}"
+    end
   end
 
   class GitHubSponsorsLookup < LookupMethod
@@ -12,16 +32,17 @@ module LookupMethodsResolver
 
     GRAPHQL_QUERY = <<~QRY
         query ($name: String!, $owner: String!) {
-        repository(owner: $owner, name: $name) {
-          fundingLinks {
-            platform
-            url
+          repository(owner: $owner, name: $name) {
+            fundingLinks {
+              platform
+              url
+            }
           }
-        }
       }
     QRY
 
     def initialize(userorg, repo)
+      super()
       @userorg = userorg
       @repo = repo
     end
@@ -63,11 +84,17 @@ module LookupMethodsResolver
     end
   end
 
+  LOOKUP_METHODS = [GitHubSponsorsLookup, NothingAvailable].freeze
+
   sig { params(formula: Formula).returns(T::Hash[String, LookupMethod]) }
   def self.resolve(formula)
     data = collect_data(formula)
 
-    data.transform_values { |url| GitHubSponsorsLookup.try_from(url)&.execute_query }
+    data.transform_values do |url|
+      LOOKUP_METHODS.find do |method|
+        method.try_from(url) # &.execute_query
+      end
+    end
   end
 
   sig { params(formula: Formula).returns(T::Hash[Symbol, String]) }
