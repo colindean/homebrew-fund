@@ -26,7 +26,7 @@ class LookupMethodsResolver
 
     data.transform_values do |url|
       installed_lookup_methods.find do |method|
-        method.try_from(url) # &.execute_query
+        method.try_from(url)
       end
     end
   end
