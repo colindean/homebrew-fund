@@ -16,7 +16,7 @@ deps-brew: # Install Homebrew dependencies for development
 # TODO: setup Ruby or check against Homebrew's ruby?
 .PHONY: deps-ruby
 deps-ruby: ## Install Ruby Gem dependencies with Bundler
-	gem install bundler && bundle install
+	(command -v bundle || gem install bundler) && bundle install
 
 GIT_HOOKS = .git/hooks/pre-commit
 .PHONY: deps-precommit

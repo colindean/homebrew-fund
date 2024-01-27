@@ -40,3 +40,7 @@ sudo service ssh start
 
 # Enable developer mode
 brew developer on
+
+# Setup command
+brew install starship
+echo 'eval "$(starship init bash)"' > /home/linuxbrew/.bashrc
