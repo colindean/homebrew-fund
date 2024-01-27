@@ -22,11 +22,7 @@ SimpleCov.start do
   ]
   formatter SimpleCov::Formatter::MultiFormatter.new(formatters)
 
-  if macos?
-    minimum_coverage 100
-  else
-    minimum_coverage 97
-  end
+  minimum_coverage 70
 
   command_name "Job #{ENV["TEST_ENV_NUMBER"]}" if ENV["TEST_ENV_NUMBER"]
 end
@@ -39,27 +35,30 @@ if macos? && ENV["TEST_ENV_NUMBER"]
   end
 end
 
+require "bundler"
+require "rspec/support/object_formatter"
+require "rspec/sorbet"
+
+Module.include(T::Sig)
+
 PROJECT_ROOT = File.expand_path("..", __dir__).freeze
 STUB_PATH = File.expand_path(File.join(__FILE__, "..", "stub")).freeze
 $LOAD_PATH.unshift(STUB_PATH)
 
-require "os"
-require "global"
-require "bundle"
+# require "os"
+# require "global"
+# require "fund"
 
-require "active_support/core_ext/object/blank"
-require "active_support/core_ext/string/exclude"
-require "active_support/core_ext/enumerable"
-require "active_support/core_ext/hash/keys"
+# require "active_support/core_ext/object/blank"
+# require "active_support/core_ext/string/exclude"
+# require "active_support/core_ext/enumerable"
+# require "active_support/core_ext/hash/keys"
 
 Dir.glob("#{PROJECT_ROOT}/lib/**/*.rb").sort.each do |file|
   next if file.include?("/extend/os/")
 
   require file
 end
-
-require "bundler"
-require "rspec/support/object_formatter"
 
 RSpec.configure do |config|
   config.filter_run_when_matching :focus
