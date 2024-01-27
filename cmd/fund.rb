@@ -38,7 +38,7 @@ module Homebrew
         # TODO: better way to get it from the parser
         package = subcommand
 
-        puts FundingMethodsResolver.suggest(package).to_s
+        puts FundingMethodsResolver.suggest(package)
 
         # raise UsageError, "unknown subcommand: #{subcommand}"
       end

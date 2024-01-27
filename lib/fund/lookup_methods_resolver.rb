@@ -1,26 +1,24 @@
 # typed: true
-require 'uri'
+# frozen_string_literal: true
+
+require "uri"
 
 module LookupMethodsResolver
-
   class LookupMethod
-
-
   end
 
   class GitHubSponsorsLookup < LookupMethod
-
-    attr :userorg, :repo
+    attr_reader :userorg, :repo
 
     GRAPHQL_QUERY = <<~QRY
-      query ($name: String!, $owner: String!) {
-      repository(owner: $owner, name: $name) {
-        fundingLinks {
-          platform
-          url
+        query ($name: String!, $owner: String!) {
+        repository(owner: $owner, name: $name) {
+          fundingLinks {
+            platform
+            url
+          }
         }
       }
-    }
     QRY
 
     def initialize(userorg, repo)
@@ -33,7 +31,8 @@ module LookupMethodsResolver
     end
 
     def ==(other)
-      return false unless other.class == self.class
+      return false if other.class != self.class
+
       userorg == other.userorg && repo == other.repo
     end
 
@@ -42,36 +41,36 @@ module LookupMethodsResolver
     end
 
     def execute_query
-      GitHub::API.open_graphql(GRAPHQL_QUERY, variables: {owner: userorg, name: repo})
+      GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
     end
 
-
-    sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup))}
+    sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup)) }
     def self.try_from(url)
-      return nil if url.nil?
-      uri = URI(url)
-      return nil unless uri.host == "github.com"
+      return if url.nil?
 
-      userorg_repo = self.extract_userorg_repo(uri.path)
+      uri = URI(url)
+      return if uri.host != "github.com"
+
+      userorg_repo = extract_userorg_repo(uri.path)
 
       GitHubSponsorsLookup.new(userorg_repo[:userorg], userorg_repo[:repo])
     end
 
-    sig { params(path: String).returns(T.nilable(T::Hash[Symbol, String]))}
+    sig { params(path: String).returns(T.nilable(T::Hash[Symbol, String])) }
     def self.extract_userorg_repo(path)
-      userorg, repo = path.delete_prefix('/').split('/').take(2)
-      {userorg: userorg, repo: repo.delete_suffix(".git")}
+      userorg, repo = path.delete_prefix("/").split("/").take(2)
+      { userorg: userorg, repo: repo.delete_suffix(".git") }
     end
   end
 
-  sig { params(formula: Formula).returns(T::Hash[String, LookupMethod])}
+  sig { params(formula: Formula).returns(T::Hash[String, LookupMethod]) }
   def self.resolve(formula)
-    data = self.collect_data(formula)
+    data = collect_data(formula)
 
-    data.transform_values {|url| GitHubSponsorsLookup.try_from(url)&.execute_query}
+    data.transform_values { |url| GitHubSponsorsLookup.try_from(url)&.execute_query }
   end
 
-  sig { params(formula: Formula).returns(T::Hash[Symbol, String])}
+  sig { params(formula: Formula).returns(T::Hash[Symbol, String]) }
   def self.collect_data(formula)
     {
       homepage:   formula.homepage,
