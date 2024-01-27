@@ -4,94 +4,16 @@
 require "uri"
 
 module LookupMethodsResolver
-  class LookupMethod
-    sig { params(url: T.nilable(String)).returns(T.nilable(LookupMethod)) }
-    def self.try_from(url)
-      nil if url.nil?
-    end
+  def self.installed_lookup_methods
+    [GitHubSponsorsLookup, NoLookupAvailable].freeze
   end
 
-  class NothingAvailable < LookupMethod
-    sig { params(url: T.nilable(String)).returns(T.nilable(LookupMethod)) }
-    def self.try_from(url)
-      NothingAvailable.new(url)
-    end
-
-    def initialize(url)
-      super()
-      @url = url
-    end
-
-    def to_s
-      "no funding information available for #{@url}"
-    end
-  end
-
-  class GitHubSponsorsLookup < LookupMethod
-    attr_reader :userorg, :repo
-
-    GRAPHQL_QUERY = <<~QRY
-        query ($name: String!, $owner: String!) {
-          repository(owner: $owner, name: $name) {
-            fundingLinks {
-              platform
-              url
-            }
-          }
-      }
-    QRY
-
-    def initialize(userorg, repo)
-      super()
-      @userorg = userorg
-      @repo = repo
-    end
-
-    def to_s
-      "GitHub repo #{userorg}/#{repo}"
-    end
-
-    def ==(other)
-      return false if other.class != self.class
-
-      userorg == other.userorg && repo == other.repo
-    end
-
-    def hash
-      [userorg, repo].hash
-    end
-
-    def execute_query
-      GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
-    end
-
-    sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup)) }
-    def self.try_from(url)
-      return if url.nil?
-
-      uri = URI(url)
-      return if uri.host != "github.com"
-
-      userorg_repo = extract_userorg_repo(uri.path)
-
-      GitHubSponsorsLookup.new(userorg_repo[:userorg], userorg_repo[:repo])
-    end
-
-    sig { params(path: String).returns(T.nilable(T::Hash[Symbol, String])) }
-    def self.extract_userorg_repo(path)
-      userorg, repo = path.delete_prefix("/").split("/").take(2)
-      { userorg: userorg, repo: repo.delete_suffix(".git") }
-    end
-  end
-
-  LOOKUP_METHODS = [GitHubSponsorsLookup, NothingAvailable].freeze
-
-  sig { params(formula: Formula).returns(T::Hash[String, LookupMethod]) }
+  sig { params(formula: Formula).returns(T::Hash[String, LookupMethodBase]) }
   def self.resolve(formula)
     data = collect_data(formula)
 
     data.transform_values do |url|
-      LOOKUP_METHODS.find do |method|
+      installed_lookup_methods.find do |method|
         method.try_from(url) # &.execute_query
       end
     end
