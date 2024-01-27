@@ -1,7 +1,7 @@
 {
     "name": "colindean/homebrew-fund",
     "image": "ghcr.io/homebrew/brew:latest",
-    "workspaceFolder": "/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/colindean/homebrew-bundle/",
+    "workspaceFolder": "/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/colindean/homebrew-fund/",
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/colindean/homebrew-fund/,type=bind,consistency=cached",
     "onCreateCommand": "./.devcontainer/on-create-command.sh",
     "postCreateCommand": "bundle install",
