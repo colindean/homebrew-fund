@@ -44,8 +44,11 @@ class GitHubSponsorsLookup < LookupMethodBase
     [userorg, repo].hash
   end
 
-  def execute_query
-    GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
+  def execute
+    result = GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
+    return if result.nil?
+
+    result["repository"]["fundingLinks"]
   end
 
   sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup)) }

@@ -11,12 +11,14 @@ module FundingMethodsResolver
     odebug "Got #{formula}, resolving possible methods of resolving funding methods"
 
     methods = LookupMethodsResolver.instance.resolve(formula)
+    by_viability = group_by_viability(methods)
+    odebug "#{by_viability[false].size} funding lookup methods non-viable for #{formula}: #{by_viability[false].keys}"
+    ohai "#{by_viability[true].size} potential funding lookup method(s) for #{formula}"
 
-    viable = group_by_viability(methods)
-
-    ohai "#{viable.size} potential funding method(s) for #{formula}"
-
-    viable.to_s
+    by_viability[true].map do |source, method|
+      ohai "Checking funding methods for #{source}"
+      method.execute
+    end.flatten.to_s
   end
 
   sig {

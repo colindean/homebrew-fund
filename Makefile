@@ -27,7 +27,7 @@ $(GIT_HOOKS): .pre-commit-config.yaml
 
 .PHONY: test-smoke
 test-smoke: ## Run a basic smoke test against a well
-	brew fund curl
+	brew fund --debug --verbose curl
 
 .PHONY: pc
 pc: check test test-smoke ## Run tasks run before committing including pre-commit
