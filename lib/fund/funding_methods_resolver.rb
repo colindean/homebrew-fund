@@ -4,6 +4,25 @@
 module FundingMethodsResolver
   sig { params(name: String).returns(String) }
   def self.suggest(name)
+    passing = [:suggest_from_static_lookup, :suggest_formula].lazy.map do |suggester|
+      method(suggester).call(name)
+    end
+
+    passing.find { |e| !e.nil? }
+  end
+
+  sig { params(name: String).returns(T.nilable(String)) }
+  def self.suggest_from_static_lookup(name)
+    odebug "Checking static list"
+    possible_static = StaticNamesLookup.try_from(name)
+
+    return possible_static.execute.flatten.to_s if possible_static
+
+    nil
+  end
+
+  sig { params(name: String).returns(T.nilable(String)) }
+  def self.suggest_formula(name)
     odebug "Looking up formula for #{name}"
     formula = FormulaLoader.get_formula(name)
     return if formula.nil?

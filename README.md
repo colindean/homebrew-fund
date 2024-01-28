@@ -52,7 +52,7 @@ The heuristic could be wrong.
 
 In general, Homebrew-fund will always attempt to retrieve the least amount of data in order to make a reasonable guess at the right URL(s) to provide.
 
-1. :new_moon: A hardcoded URL for projects that aren't Homebrew packages specifically, such as Homebrew itself.
+1. :last_quarter_moon: A hardcoded URL for projects that aren't Homebrew packages specifically, such as Homebrew itself.
 1. :last_quarter_moon: If the project has a GitHub homepage or download link,
    use the GitHub GraphQL API to retrieve the project's funding links,
    configured in [`FUNDING.yaml` in a few known places][fundingyml].

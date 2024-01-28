@@ -28,7 +28,7 @@ class NoLookupAvailable < LookupMethodBase
   end
 
   def hash
-    [userorg, repo].hash
+    url.hash
   end
 end
 

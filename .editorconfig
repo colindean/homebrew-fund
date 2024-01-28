@@ -11,3 +11,7 @@ insert_final_newline = true
 
 [**.md]
 x-soft-wrap-text = true
+
+[Makefile]
+indent_style = tab
+indent_size = 4
