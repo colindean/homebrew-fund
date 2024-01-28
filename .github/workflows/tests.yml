@@ -45,5 +45,7 @@ jobs:
       if: always()
 
     - name: Test that a basic command works
+      env:
+        HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         brew fund curl
