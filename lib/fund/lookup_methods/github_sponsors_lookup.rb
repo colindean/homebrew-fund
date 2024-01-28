@@ -70,4 +70,4 @@ class GitHubSponsorsLookup < LookupMethodBase
   end
 end
 
-LookupMethodsResolver.instance.install_lookup_method GitHubSponsorsLookup
+FormulaLookupMethodsResolver.instance.install_lookup_method GitHubSponsorsLookup

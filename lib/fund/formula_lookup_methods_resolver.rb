@@ -5,7 +5,7 @@ require "uri"
 
 require "singleton"
 
-class LookupMethodsResolver
+class FormulaLookupMethodsResolver
   include Singleton
 
   def initialize

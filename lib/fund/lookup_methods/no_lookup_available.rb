@@ -32,4 +32,4 @@ class NoLookupAvailable < LookupMethodBase
   end
 end
 
-LookupMethodsResolver.instance.install_lookup_method NoLookupAvailable
+FormulaLookupMethodsResolver.instance.install_lookup_method NoLookupAvailable

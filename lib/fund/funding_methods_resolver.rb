@@ -10,7 +10,7 @@ module FundingMethodsResolver
 
     odebug "Got #{formula}, resolving possible methods of resolving funding methods"
 
-    methods = LookupMethodsResolver.instance.resolve(formula)
+    methods = FormulaLookupMethodsResolver.instance.resolve(formula)
     by_viability = group_by_viability(methods)
     if by_viability.key? false
       nopes = by_viability[false]
