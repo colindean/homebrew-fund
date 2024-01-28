@@ -12,13 +12,26 @@ module FundingMethodsResolver
 
     methods = LookupMethodsResolver.instance.resolve(formula)
     by_viability = group_by_viability(methods)
-    odebug "#{by_viability[false].size} funding lookup methods non-viable for #{formula}: #{by_viability[false].keys}"
+    if by_viability.has_key? false
+      odebug "#{by_viability[false].size} funding lookup methods non-viable for #{formula}: #{by_viability[false].keys}"
+    end
+    failure_message = "Try looking at its homepage, open it with 'brew homepage #{formula}' or look at 'brew info #{formula}' for other information."
+    unless by_viability.has_key? true
+      onoe "No viable funding lookup methods available for #{formula}"
+      return failure_message
+    end
     ohai "#{by_viability[true].size} potential funding lookup method(s) for #{formula}"
 
-    by_viability[true].map do |source, method|
+    messages = by_viability[true].map do |source, method|
       ohai "Checking funding methods for #{source}"
       method.execute
-    end.flatten.to_s
+    end.flatten
+
+    if messages.empty? || messages.nil?
+      failure_message
+    else
+      messages.to_s
+    end
   end
 
   sig {
