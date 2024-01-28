@@ -5,8 +5,6 @@
 # the formula doesn't have enough information to resolve a potential
 # donation method.
 class NoLookupAvailable < LookupMethodBase
-  extend NonViableMethod
-
   attr_reader :url
 
   sig { params(url: T.nilable(String)).returns(T.nilable(NoLookupAvailable)) }
