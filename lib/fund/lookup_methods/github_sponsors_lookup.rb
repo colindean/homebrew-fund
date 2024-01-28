@@ -8,6 +8,9 @@ require "uri"
 #
 # This data should come from $org/$repo/.github/FUNDING.ya?ml
 class GitHubSponsorsLookup < LookupMethodBase
+  extend ViableMethod
+  include ViableMethod
+
   attr_reader :userorg, :repo
 
   GRAPHQL_QUERY = <<~QRY

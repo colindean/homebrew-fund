@@ -12,15 +12,19 @@ module FundingMethodsResolver
 
     methods = LookupMethodsResolver.instance.resolve(formula)
 
+    viable = group_by_viability(methods)
+
     ohai "#{viable.size} potential funding method(s) for #{formula}"
 
-    methods.to_s
+    viable.to_s
   end
 
   sig {
-    params(methods: T::Hash[String, LookupMethodBase]).returns(T::Hash[Symbol, T::Hash[String, LookupMethodBase]])
+    params(methods: T::Hash[String, LookupMethodBase]).returns(T::Hash[T::Boolean, T::Hash[String, LookupMethodBase]])
   }
   def self.group_by_viability(methods)
-    methods.to_a.group_by { |hsh| hsh[1].instance_of?(NoLookupAvailable) }
+    methods.to_a.group_by do |hsh|
+      hsh[1].viable?
+    end.transform_values(&:to_h)
   end
 end

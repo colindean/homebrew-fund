@@ -15,7 +15,8 @@
         "vscode": {
             "extensions": [
                 "ryanluker.vscode-coverage-gutters",
-                "first-try-software.coverage-status"
+                "first-try-software.coverage-status",
+                "ms-vscode.makefile-tools"
             ]
         }
     }
