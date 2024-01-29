@@ -24,12 +24,15 @@ module FundingMethodsResolver
   sig { params(name: String).returns(T.nilable(String)) }
   def self.suggest_formula(name)
     odebug "Looking up formula for #{name}"
+
     formula = FormulaLoader.get_formula(name)
     return if formula.nil?
-
     odebug "Got #{formula}, resolving possible methods of resolving funding methods"
 
     methods = FormulaLookupMethodsResolver.instance.resolve(formula)
+
+    # TODO: rename "viability" to something like "executable" or "further steps required"
+    #       non-viable really just means "we've exhausted lookups"
     by_viability = group_by_viability(methods)
     if by_viability.key? false
       nopes = by_viability[false]
