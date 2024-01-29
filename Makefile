@@ -32,6 +32,7 @@ test-smoke: ## Run a basic smoke test against a well
 	$(BFDV) curl
 	$(BFDV) brew
 	$(BFDV) homebrew-fund
+	$(BFDV) sqlite
 
 .PHONY: pc
 pc: check test test-smoke ## Run tasks run before committing including pre-commit
