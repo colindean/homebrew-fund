@@ -8,6 +8,7 @@ require "fund/funding_methods_resolver"
 
 require "fund/lookup_methods/lookup_method_base"
 require "fund/formula_lookup_methods_resolver"
+require "fund/presenters/github_fundinglinks_presenter"
 require "fund/lookup_methods/github_sponsors_lookup"
 require "fund/lookup_methods/no_lookup_available"
 require "fund/lookup_methods/static_names_lookup"

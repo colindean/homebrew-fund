@@ -22,7 +22,7 @@ class FundingMethodsResolver
     odebug "Checking static list"
     possible_static = StaticNamesLookup.try_from(name)
 
-    return possible_static.execute.flatten.to_s if possible_static
+    return possible_static.execute.to_s if possible_static
 
     nil
   end
@@ -51,17 +51,17 @@ class FundingMethodsResolver
       onoe "No viable funding lookup methods available for #{formula}"
       return failure_message
     end
-    ohai "#{by_viability[true].size} potential funding lookup method(s) for #{formula}"
+    odebug "#{by_viability[true].size} potential funding lookup method(s) for #{formula}"
 
     messages = by_viability[true].map do |source, method|
-      ohai "Checking funding methods for #{source}"
+      odebug "Checking funding methods for #{source}"
       method.execute
     end.flatten
 
     if messages.empty? || messages.nil?
       failure_message
     else
-      messages.to_s
+      messages.join("\n")
     end
   end
 
