@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe FundingMethodsResolver do
-  subject(:resolver) { described_class }
+  subject(:resolver) { described_class.new("doesntmatter") }
 
   # let(:nla) { instance_double(NoLookupAvailable, url: "doesntmatter") }
   # let(:ghsl) { instance_double(GitHubSponsorsLookup, userorg: "lol", repo: "wut") }
