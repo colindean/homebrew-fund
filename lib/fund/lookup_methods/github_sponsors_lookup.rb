@@ -46,6 +46,8 @@ class GitHubSponsorsLookup < LookupMethodBase
 
   sig { returns(T.nilable(String)) }
   def execute
+    # require "pry"
+    # binding.pry
     result = GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
     return if result.nil?
 
@@ -53,6 +55,8 @@ class GitHubSponsorsLookup < LookupMethodBase
     links = result.dig("repository", "fundingLinks")
     return unless links
 
+    # FIXME: links can have nothing, and thus we should return nil,
+    #        but it's nice to show that GHSponsors has the project but no data for it.
     GitHubFundinglinksPresenter.new(links).to_s
   end
 

@@ -56,7 +56,8 @@ class FundingMethodsResolver
     messages = by_viability[true].map do |source, method|
       odebug "Checking funding methods for #{source}"
       method.execute
-    end.flatten
+      # TODO: uniq usage here is such a hack, let's combine the GH Sponsors output into a single presenter instance
+    end.flatten.uniq
 
     if messages.empty? || messages.nil?
       failure_message
@@ -67,7 +68,6 @@ class FundingMethodsResolver
 
   GroupedByViability = T.type_alias { T::Hash[T::Boolean, T::Hash[String, LookupMethodBase]] } # rubocop:disable Style/MutableConstant
 
-  # XXX:  this
   sig {
     params(by_viability: GroupedByViability, formula: Formula).returns(NilClass)
   }

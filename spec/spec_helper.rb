@@ -48,11 +48,14 @@ $LOAD_PATH.unshift(STUB_PATH)
 # require "os"
 # require "global"
 # require "fund"
+require "utils"
+require "github"
 
 # require "active_support/core_ext/object/blank"
 # require "active_support/core_ext/string/exclude"
 # require "active_support/core_ext/enumerable"
-# require "active_support/core_ext/hash/keys"
+require "active_support/core_ext/hash/keys"
+require "active_support/core_ext/hash/indifferent_access"
 
 Dir.glob("#{PROJECT_ROOT}/lib/**/*.rb").sort.each do |file|
   next if file.include?("/extend/os/")

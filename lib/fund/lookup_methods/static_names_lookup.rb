@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-LOOKUP_TABLE = { brew:            GitHubSponsorsLookup.new("homebrew", ".github"),
+LOOKUP_TABLE = { "brew":          GitHubSponsorsLookup.new("homebrew", ".github"), # rubocop:disable Lint/SymbolConversion
                  "homebrew-fund": GitHubSponsorsLookup.new("colindean",
                                                            "homebrew-fund") }.freeze
 
