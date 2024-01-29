@@ -1,9 +1,12 @@
 # typed: true
 # frozen_string_literal: true
 
-LOOKUP_TABLE = { "brew":          GitHubSponsorsLookup.new("homebrew", ".github"), # rubocop:disable Lint/SymbolConversion
+# rubocop:disable Lint/SymbolConversion
+LOOKUP_TABLE = { "brew":          GitHubSponsorsLookup.new("homebrew", ".github"),
                  "homebrew-fund": GitHubSponsorsLookup.new("colindean",
-                                                           "homebrew-fund") }.freeze
+                                                           "homebrew-fund"),
+                 "sqlite":        "https://sqlite.org/prosupport.html" }.freeze
+# rubocop:enable Lint/SymbolConversion
 
 class StaticNamesLookup < LookupMethodBase
   extend ViableMethod
