@@ -6,9 +6,6 @@ describe FundingMethodsResolver do
   subject(:working_resolver) { described_class.new("brew") }
 
   let(:test_resolver) { described_class.new("doesntmatter") }
-  # let(:nla) { instance_double(NoLookupAvailable, url: "doesntmatter") }
-  # let(:ghsl) { instance_double(GitHubSponsorsLookup, userorg: "lol", repo: "wut") }
-
   let(:nla) { NoLookupAvailable.new("doesntmatter") }
   let(:ghsl) { GitHubSponsorsLookup.new("lol", "wut") }
 
