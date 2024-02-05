@@ -1,5 +1,9 @@
 --dir
 lib
+--dir
+../../../Homebrew
 --disable-watchman
 --ignore=/tmp/
 --ignore=/vendor/bundle
+--ignore=../../../Homebrew/vendor/bundle
+#--ignore=/home/linuxbrew/.linuxbrew/Homebrew/Library/Homebrew/vendor/bundle

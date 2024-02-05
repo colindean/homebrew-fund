@@ -12,3 +12,9 @@ require "fund/presenters/github_fundinglinks_presenter"
 require "fund/lookup_methods/github_sponsors_lookup"
 require "fund/lookup_methods/no_lookup_available"
 require "fund/lookup_methods/static_names_lookup"
+
+# XXX: insert this in case Homebrew isn't in context, e.g. Sorbet
+#      This might be unnecessary.
+class Module
+  include T::Sig
+end

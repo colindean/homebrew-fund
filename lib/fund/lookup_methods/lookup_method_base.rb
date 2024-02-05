@@ -2,20 +2,24 @@
 # frozen_string_literal: true
 
 module NonViableMethod
+  sig { returns(T::Boolean) }
   def viable?
     false
   end
 
+  sig { returns(T::Boolean) }
   def self.viable?
     false
   end
 end
 
 module ViableMethod
+  sig { returns(T::Boolean) }
   def viable?
     true
   end
 
+  sig { returns(T::Boolean) }
   def self.viable?
     true
   end
