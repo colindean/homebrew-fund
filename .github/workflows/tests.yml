@@ -52,5 +52,5 @@ jobs:
       run: |
         brew fund curl
         brew fund brew
-	      brew fund homebrew-fund
+	brew fund homebrew-fund
 
