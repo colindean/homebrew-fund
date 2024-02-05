@@ -24,3 +24,16 @@ deps-precommit: $(GIT_HOOKS) ## Install pre-commit git hooks
 
 $(GIT_HOOKS): .pre-commit-config.yaml
 	pre-commit install
+
+BFDV = brew fund --debug --verbose
+
+.PHONY: test-smoke
+test-smoke: ## Run a basic smoke test against a well
+	$(BFDV) curl
+	$(BFDV) brew
+	$(BFDV) homebrew-fund
+	$(BFDV) sqlite
+
+.PHONY: pc
+pc: check test test-smoke ## Run tasks run before committing including pre-commit
+	pre-commit run

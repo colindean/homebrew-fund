@@ -16,7 +16,9 @@
             "extensions": [
                 "ryanluker.vscode-coverage-gutters",
                 "first-try-software.coverage-status",
-                "sorbet.sorbet-vscode-extension"
+                "sorbet.sorbet-vscode-extension",
+                "ms-vscode.makefile-tools",
+                "EditorConfig.EditorConfig"
             ]
         }
     }

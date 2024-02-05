@@ -8,6 +8,9 @@ require "uri"
 #
 # This data should come from $org/$repo/.github/FUNDING.ya?ml
 class GitHubSponsorsLookup < LookupMethodBase
+  extend ViableMethod
+  include ViableMethod
+
   attr_reader :userorg, :repo
 
   GRAPHQL_QUERY = <<~QRY
@@ -41,8 +44,17 @@ class GitHubSponsorsLookup < LookupMethodBase
     [userorg, repo].hash
   end
 
-  def execute_query
-    GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
+  sig { returns(T.nilable(String)) }
+  def execute
+    result = GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
+    return if result.nil?
+
+    links = result.dig("repository", "fundingLinks")
+    return unless links
+
+    # FIXME: links can have nothing, and thus we should return nil,
+    #        but it's nice to show that GHSponsors has the project but no data for it.
+    GitHubFundinglinksPresenter.new(links).to_s
   end
 
   sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup)) }
@@ -64,4 +76,4 @@ class GitHubSponsorsLookup < LookupMethodBase
   end
 end
 
-LookupMethodsResolver.instance.install_lookup_method GitHubSponsorsLookup
+FormulaLookupMethodsResolver.instance.install_lookup_method GitHubSponsorsLookup

@@ -5,7 +5,7 @@ require "uri"
 
 require "singleton"
 
-class LookupMethodsResolver
+class FormulaLookupMethodsResolver
   include Singleton
 
   def initialize
@@ -25,9 +25,7 @@ class LookupMethodsResolver
     data = FormulaLoader.collect_data(formula)
 
     data.transform_values do |url|
-      installed_lookup_methods.find do |method|
-        method.try_from(url) # &.execute_query
-      end
+      installed_lookup_methods.lazy.map { |method| method.try_from(url) }.find { |v| !v.nil? }
     end
   end
 end

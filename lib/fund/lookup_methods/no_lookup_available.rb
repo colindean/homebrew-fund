@@ -28,8 +28,8 @@ class NoLookupAvailable < LookupMethodBase
   end
 
   def hash
-    [userorg, repo].hash
+    url.hash
   end
 end
 
-LookupMethodsResolver.instance.install_lookup_method NoLookupAvailable
+FormulaLookupMethodsResolver.instance.install_lookup_method NoLookupAvailable

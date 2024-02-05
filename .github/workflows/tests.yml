@@ -41,9 +41,15 @@ jobs:
     - name: Run RSpec tests
       run: bundle exec rspec
 
-    - uses: codecov/codecov-action@4fe8c5f003fae66aa5ebb77cfd3e7bfbbda0b6b0
-      if: always()
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Test that a basic command works
+      env:
+        HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         brew fund curl
+        brew fund brew
+        brew fund homebrew-fund
