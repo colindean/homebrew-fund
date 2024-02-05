@@ -53,4 +53,3 @@ jobs:
         brew fund curl
         brew fund brew
         brew fund homebrew-fund
-
