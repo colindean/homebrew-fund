@@ -14,7 +14,7 @@ require "fund/lookup_methods/no_lookup_available"
 require "fund/lookup_methods/static_names_lookup"
 
 # XXX: insert this in case Homebrew isn't in context, e.g. Sorbet
-#      This might be unnecessary.
+#      This might be unnecessary
 class Module
   include T::Sig
 end
