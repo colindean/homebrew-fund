@@ -57,7 +57,7 @@ require "github"
 require "active_support/core_ext/hash/keys"
 require "active_support/core_ext/hash/indifferent_access"
 
-Dir.glob("#{PROJECT_ROOT}/lib/**/*.rb").sort.each do |file|
+Dir.glob("#{PROJECT_ROOT}/lib/**/*.rb").each do |file|
   next if file.include?("/extend/os/")
 
   require file
