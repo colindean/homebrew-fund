@@ -18,8 +18,7 @@ GEM
     connection_pool (2.4.1)
     diff-lcs (1.5.1)
     docile (1.4.0)
-    drb (2.2.0)
-      ruby2_keywords
+    drb (2.2.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
@@ -44,7 +43,6 @@ GEM
     rspec-sorbet (1.9.2)
       sorbet-runtime
     rspec-support (3.13.1)
-    ruby2_keywords (0.0.5)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
