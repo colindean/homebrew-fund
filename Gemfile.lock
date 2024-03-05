@@ -43,7 +43,7 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-sorbet (1.9.2)
       sorbet-runtime
-    rspec-support (3.13.0)
+    rspec-support (3.13.1)
     ruby2_keywords (0.0.5)
     simplecov (0.22.0)
       docile (~> 1.1)
