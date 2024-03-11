@@ -20,7 +20,7 @@ GEM
     docile (1.4.0)
     drb (2.2.0)
       ruby2_keywords
-    i18n (1.14.1)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
     minitest (5.22.2)
