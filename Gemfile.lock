@@ -21,7 +21,7 @@ GEM
     drb (2.2.1)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
-    method_source (1.0.0)
+    method_source (1.1.0)
     minitest (5.23.0)
     mutex_m (0.2.0)
     pry (0.14.2)
