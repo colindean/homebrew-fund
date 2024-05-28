@@ -72,7 +72,7 @@ class GitHubSponsorsLookup < LookupMethodBase
   sig { params(path: String).returns(T.nilable(T::Hash[Symbol, String])) }
   def self.extract_userorg_repo(path)
     userorg, repo = path.delete_prefix("/").split("/").take(2)
-    { userorg: userorg, repo: repo.delete_suffix(".git") }
+    { userorg:, repo: repo.delete_suffix(".git") }
   end
 end
 
