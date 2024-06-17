@@ -1,3 +1,6 @@
+# tools
+PRECOMMIT ?= pre-commit
+
 .PHONY: test
 test: ## Run tests
 	bundle exec rspec
@@ -23,7 +26,7 @@ GIT_HOOKS = .git/hooks/pre-commit
 deps-precommit: $(GIT_HOOKS) ## Install pre-commit git hooks
 
 $(GIT_HOOKS): .pre-commit-config.yaml
-	pre-commit install
+	$(PRECOMMIT) install
 
 BFDV = brew fund --debug --verbose
 
@@ -36,4 +39,4 @@ test-smoke: ## Run a basic smoke test against a well
 
 .PHONY: pc
 pc: check test test-smoke ## Run tasks run before committing including pre-commit
-	pre-commit run
+	$(PRECOMMIT) run
