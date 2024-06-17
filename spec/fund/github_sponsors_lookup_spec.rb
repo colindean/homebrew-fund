@@ -8,7 +8,7 @@ describe GitHubSponsorsLookup do
   describe "#try_form" do
     it "extracts user and org from a valid github.com URL" do
       expected = described_class.new("homebrew", "homebrew-fund")
-      expect(lookup.try_from("https://github.com/homebrew/homebrew-fund")) == expected
+      expect(lookup.try_from("https://github.com/homebrew/homebrew-fund")).to eq(expected)
     end
 
     it "returns nil when the URL domain is not github.com" do

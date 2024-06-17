@@ -8,7 +8,7 @@ describe NoLookupAvailable do
   describe "#try_form" do
     it "succeeds on any URL" do
       expected = described_class.new(test_url)
-      expect(described_class.try_from(test_url)) == expected
+      expect(described_class.try_from(test_url)).to eq(expected)
     end
 
     it "is nonviable" do
