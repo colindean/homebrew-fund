@@ -66,7 +66,7 @@ class FundingMethodsResolver
     end
   end
 
-  GroupedByViability = T.type_alias { T::Hash[T::Boolean, T::Hash[String, LookupMethodBase]] } # rubocop:disable Style/MutableConstant
+  GroupedByViability = T.type_alias { T::Hash[T::Boolean, T::Hash[String, LookupMethodBase]] }
 
   sig {
     params(by_viability: GroupedByViability, formula: Formula).returns(NilClass)
