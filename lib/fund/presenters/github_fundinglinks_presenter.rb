@@ -4,7 +4,7 @@ class GitHubFundinglinksPresenter
   attr_reader :data
 
   # TODO: Maybe the hash should be its own type
-  FundinglinksData = T.type_alias { T::Array[T::Hash[String, String]] } # rubocop:disable Style/MutableConstant
+  FundinglinksData = T.type_alias { T::Array[T::Hash[String, String]] }
 
   def initialize(fundinglinks_data)
     @data = fundinglinks_data
