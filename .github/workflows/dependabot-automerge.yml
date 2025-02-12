@@ -31,7 +31,7 @@ jobs:
               "docile"
             ]'),
             steps.metadata.outputs.dependency-names
-          ) 
+          )
           && steps.metadata.outputs.update-type == 'version-update:semver-patch'
         run: gh pr merge --auto --merge "$PR_URL"
         env:
