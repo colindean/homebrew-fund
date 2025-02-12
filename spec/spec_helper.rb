@@ -57,6 +57,7 @@ require "github"
 require "active_support/core_ext/hash/keys"
 require "active_support/core_ext/hash/indifferent_access"
 
+# TODO: figure out why this had to get disabled
 requirables = Dir.glob("#{PROJECT_ROOT}/lib/**/*.rb").sort # rubocop:disable Lint/RedundantDirGlobSort
 
 requirables.each do |file|

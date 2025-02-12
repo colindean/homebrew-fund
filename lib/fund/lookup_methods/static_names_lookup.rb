@@ -1,6 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
+# these should remain strings
 # rubocop:disable Lint/SymbolConversion
 LOOKUP_TABLE = { "brew":          GitHubSponsorsLookup.new("homebrew", ".github"),
                  "homebrew-fund": GitHubSponsorsLookup.new("colindean",
