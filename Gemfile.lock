@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (8.0.1)
+    activesupport (8.0.2)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -25,9 +25,9 @@ GEM
     drb (2.2.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    logger (1.6.5)
+    logger (1.6.6)
     method_source (1.1.0)
-    minitest (5.25.4)
+    minitest (5.25.5)
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -60,7 +60,7 @@ GEM
     sorbet-runtime (0.5.11911)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.0.2)
+    uri (1.0.3)
 
 PLATFORMS
   arm64-darwin-22
