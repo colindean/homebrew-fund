@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # typed: false
 # frozen_string_literal: true
+
 module Homebrew
   module Cmd
     class Fund < AbstractCommand
@@ -9,8 +10,7 @@ module Homebrew
           Show funding information for a Homebrew package or set of packages
         EOS
 
-        switch "-v", "--verbose",
-             description: "Show what's being done"
+        switch "-v", "--verbose", description: "Show what's being done"
         named_args [:formula, :cask], min: 1
       end
 
