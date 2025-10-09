@@ -17,7 +17,7 @@ module Homebrew
       def run
         # Keep this after the .parse to keep --help fast.
         require_relative "../lib/fund"
-    
+
         begin
           case subcommand = args.named.first.presence
           when nil, "fund"
@@ -26,11 +26,11 @@ module Homebrew
           else
             # TODO: better way to get it from the parser
             package = subcommand
-    
+
             fmresolver = FundingMethodsResolver.new(package)
-    
+
             puts fmresolver.suggest_all
-    
+
             # raise UsageError, "unknown subcommand: #{subcommand}"
           end
         rescue SystemExit => e
@@ -41,7 +41,7 @@ module Homebrew
           Homebrew.failed = true
         rescue RuntimeError, SystemCallError => e
           raise if e.message.empty?
-    
+
           onoe e
           puts e.backtrace if args.debug?
           Homebrew.failed = true
