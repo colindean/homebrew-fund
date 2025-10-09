@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-require "utils/output"
+# require "utils/output"
 
 class FundingMethodsResolver
   requires_ancestor { Kernel }
