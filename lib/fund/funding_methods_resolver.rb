@@ -1,7 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
+require "utils/output"
+
 class FundingMethodsResolver
+  requires_ancestor { Kernel }
   attr_reader :name
 
   def initialize(name)
