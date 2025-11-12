@@ -4,6 +4,8 @@ updates:
   directory: "/"
   schedule:
     interval: weekly
+  cooldown:
+    default-days: 7
   open-pull-requests-limit: 10
   allow:
   - dependency-type: direct
@@ -16,6 +18,8 @@ updates:
   directory: "/"
   schedule:
     interval: daily
+  cooldown:
+    default-days: 7
   open-pull-requests-limit: 10
   # The actions in triage-issues.yml are updated in the Homebrew/.github repo
   ignore:
