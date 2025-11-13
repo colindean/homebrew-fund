@@ -4,7 +4,6 @@
 # require "utils/output"
 
 class FundingMethodsResolver
-  requires_ancestor { Kernel }
   attr_reader :name
 
   def initialize(name)
