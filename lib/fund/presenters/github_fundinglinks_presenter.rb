@@ -7,16 +7,20 @@ class GitHubFundinglinksPresenter
   FundinglinksData = T.type_alias { T::Array[T::Hash[String, String]] }
 
   def initialize(fundinglinks_data)
-    @data = fundinglinks_data
+    @repo_name = fundinglinks_data.dig("repository", "nameWithOwner")
+    @data = fundinglinks_data.dig("repository", "fundingLinks")
+    @platform_urls = @data.to_h do |entry|
+      [entry["platform"], entry["url"]]
+    end
   end
 
   def to_s
     return "GitHub Sponsors has no suggestions." if data.empty?
 
-    entries = @data.map do |entry|
-      "#{entry["platform"]} => #{entry["url"]}"
+    entries = @platform_urls.map do |platform, url|
+      "#{platform} => #{url}"
     end.join("\n")
 
-    "GitHub Sponsors suggests:\n#{entries}"
+    "GitHub Sponsors for #{@repo_name} suggests:\n#{entries}"
   end
 end

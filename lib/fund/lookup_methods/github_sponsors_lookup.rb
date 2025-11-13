@@ -16,6 +16,7 @@ class GitHubSponsorsLookup < LookupMethodBase
   GRAPHQL_QUERY = <<~QRY
       query ($name: String!, $owner: String!) {
         repository(owner: $owner, name: $name) {
+          nameWithOwner
           fundingLinks {
             platform
             url
@@ -54,7 +55,7 @@ class GitHubSponsorsLookup < LookupMethodBase
 
     # FIXME: links can have nothing, and thus we should return nil,
     #        but it's nice to show that GHSponsors has the project but no data for it.
-    GitHubFundinglinksPresenter.new(links).to_s
+    GitHubFundinglinksPresenter.new(result).to_s
   end
 
   sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup)) }
