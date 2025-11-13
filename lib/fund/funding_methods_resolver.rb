@@ -1,9 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
-# require "utils/output"
+require "utils/output"
 
 class FundingMethodsResolver
+  include ::Utils::Output::Mixin
   attr_reader :name
 
   def initialize(name)
