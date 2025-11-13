@@ -16,8 +16,8 @@ jobs:
     steps:
     - name: Set up Homebrew
       id: set-up-homebrew
-      # zizmor: ignore[unpinned-uses] Trust Homebrew!
-      uses: Homebrew/actions/setup-homebrew@main
+      uses: | # zizmor: ignore[unpinned-uses] Trust Homebrew!
+        Homebrew/actions/setup-homebrew@main
 
     - name: Cache Homebrew Bundler RubyGems
       id: cache
