@@ -14,7 +14,7 @@ deps: deps-brew deps-precommit deps-ruby ## Install all dependencies
 
 .PHONY: deps-brew
 deps-brew: # Install Homebrew dependencies for development
-	brew bundle install --no-lock --file=Brewfile
+	brew bundle install --verbose --file=Brewfile
 
 # TODO: setup Ruby or check against Homebrew's ruby?
 .PHONY: deps-ruby

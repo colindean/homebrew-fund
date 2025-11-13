@@ -1,7 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
+require "utils/output"
+
 class FundingMethodsResolver
+  include ::Utils::Output::Mixin
   attr_reader :name
 
   def initialize(name)
@@ -69,7 +72,7 @@ class FundingMethodsResolver
   GroupedByViability = T.type_alias { T::Hash[T::Boolean, T::Hash[String, LookupMethodBase]] }
 
   sig {
-    params(by_viability: GroupedByViability, formula: Formula).returns(NilClass)
+    params(by_viability: GroupedByViability, formula: Formula).void
   }
   def handle_nonviables(by_viability, formula)
     return unless by_viability.key? false
