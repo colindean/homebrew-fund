@@ -3,6 +3,7 @@ set -eux -o pipefail
 
 # fix permissions so Homebrew and Bundler don't complain
 sudo chmod -R g-w,o-w /home/linuxbrew
+sudo chmod +t -R /home/linuxbrew/
 
 # everything below is too slow to do unless prebuilding so skip it
 CODESPACES_ACTION_NAME="$(jq --raw-output '.ACTION_NAME' /workspaces/.codespaces/shared/environment-variables.json)"
@@ -14,6 +15,12 @@ fi
 
 # install Homebrew's development gems
 brew install-bundler-gems --groups=all
+
+# install Homebrew formulae we might need
+brew install shellcheck shfmt gh gnu-tar
+
+# cleanup any mess
+brew cleanup
 
 # install some useful development things
 sudo apt-get update
@@ -29,12 +36,6 @@ apt_get_install \
   openssh-server \
   zsh
 
-# Ubuntu 18.04 doesn't include zsh-autosuggestions
-if ! grep -q "Ubuntu 18.04" /etc/issue &>/dev/null
-then
-  apt_get_install zsh-autosuggestions
-fi
-
 # Start the SSH server so that `gh cs ssh` works.
 sudo service ssh start
 
@@ -43,4 +44,4 @@ brew developer on
 
 # Setup command
 brew install starship
-echo 'eval "$(starship init bash)"' > /home/linuxbrew/.bashrc
+echo 'eval "$(starship init bash)"' >> /home/linuxbrew/.bashrc
