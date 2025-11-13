@@ -6,7 +6,9 @@
 LOOKUP_TABLE = { "brew":          GitHubSponsorsLookup.new("homebrew", ".github"),
                  "homebrew-fund": GitHubSponsorsLookup.new("colindean",
                                                            "homebrew-fund"),
-                 "sqlite":        "https://sqlite.org/prosupport.html" }.freeze
+                 "sqlite":        Fund::Presenters::StaticValuePresenter.new(
+                   "https://sqlite.org/prosupport.html",
+                 ) }.freeze
 # rubocop:enable Lint/SymbolConversion
 
 class StaticNamesLookup < LookupMethodBase
