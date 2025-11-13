@@ -11,6 +11,7 @@ module Homebrew
         EOS
 
         switch "-v", "--verbose", description: "Show what's being done"
+        switch "-j", "--json", description: "Output data in JSON format"
         named_args [:formula, :cask], min: 1
       end
 
@@ -29,7 +30,13 @@ module Homebrew
 
             fmresolver = FundingMethodsResolver.new(package)
 
-            puts fmresolver.suggest_all
+            available = fmresolver.suggest_all
+            if args.json?
+              available = available.map(&:to_h) if available.is_a? Array
+              puts available.to_json
+            else
+              puts available
+            end
 
             # raise UsageError, "unknown subcommand: #{subcommand}"
           end
