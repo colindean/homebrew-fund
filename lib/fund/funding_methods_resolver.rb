@@ -22,7 +22,7 @@ class FundingMethodsResolver
 
   sig { returns(T.nilable(String)) }
   def suggest_from_static_lookup
-    odebug "Checking static list"
+    odebug "Checking static list for #{name}"
     possible_static = StaticNamesLookup.try_from(name)
 
     return possible_static.execute.to_s if possible_static
