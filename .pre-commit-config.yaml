@@ -15,7 +15,7 @@ repos:
   - id: check-merge-conflict
   - id: destroyed-symlinks
 
-- repo: https://github.com/woodruffw/zizmor-pre-commit
+- repo: https://github.com/zizmorcore/zizmor-pre-commit
   rev: v1.18.0
   hooks:
   - id: zizmor
