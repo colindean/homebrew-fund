@@ -28,6 +28,7 @@ jobs:
               "bigdecimal",
               "i18n",
               "rspec-mocks",
+              "rspec-support",
               "docile"
             ]'),
             steps.metadata.outputs.dependency-names
