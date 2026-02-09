@@ -52,7 +52,7 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-sorbet (1.9.2)
       sorbet-runtime
-    rspec-support (3.13.6)
+    rspec-support (3.13.7)
     securerandom (0.4.1)
     simplecov (0.22.0)
       docile (~> 1.1)
