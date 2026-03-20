@@ -6,8 +6,8 @@ describe FundingMethodsResolver do
   subject(:working_resolver) { described_class.new("brew") }
 
   let(:test_resolver) { described_class.new("doesntmatter") }
-  let(:nla) { NoLookupAvailable.new("doesntmatter") }
-  let(:ghsl) { GitHubSponsorsLookup.new("lol", "wut") }
+  let(:nla) { Fund::LookupMethods::NoLookupAvailable.new("doesntmatter") }
+  let(:ghsl) { Fund::LookupMethods::GitHubSponsorsLookup.new("lol", "wut") }
 
   describe "#group_by_viability" do
     it "splits out NoLookupAvailable" do

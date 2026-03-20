@@ -7,74 +7,78 @@ require "uri"
 # https://docs.github.com/en/graphql/reference/objects#fundinglink
 #
 # This data should come from $org/$repo/.github/FUNDING.ya?ml
-class GitHubSponsorsLookup < LookupMethodBase
-  extend ViableMethod
-  include ViableMethod
+module Fund
+  module LookupMethods
+    class GitHubSponsorsLookup < LookupMethodBase
+      extend ViableMethod
+      include ViableMethod
 
-  attr_reader :userorg, :repo
+      attr_reader :userorg, :repo
 
-  GRAPHQL_QUERY = <<~QRY
-      query ($name: String!, $owner: String!) {
-        repository(owner: $owner, name: $name) {
-          nameWithOwner
-          fundingLinks {
-            platform
-            url
-          }
+      GRAPHQL_QUERY = <<~QRY
+          query ($name: String!, $owner: String!) {
+            repository(owner: $owner, name: $name) {
+              nameWithOwner
+              fundingLinks {
+                platform
+                url
+              }
+            }
         }
-    }
-  QRY
+      QRY
 
-  def initialize(userorg, repo)
-    super()
-    @userorg = userorg
-    @repo = repo
-  end
+      def initialize(userorg, repo)
+        super()
+        @userorg = userorg
+        @repo = repo
+      end
 
-  def to_s
-    "GitHub repo #{userorg}/#{repo}"
-  end
+      def to_s
+        "GitHub repo #{userorg}/#{repo}"
+      end
 
-  def ==(other)
-    return false if other.class != self.class
+      def ==(other)
+        return false if other.class != self.class
 
-    userorg == other.userorg && repo == other.repo
-  end
+        userorg == other.userorg && repo == other.repo
+      end
 
-  def hash
-    [userorg, repo].hash
-  end
+      def hash
+        [userorg, repo].hash
+      end
 
-  sig { returns(T.nilable(String)) }
-  def execute
-    result = GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
-    return if result.nil?
+      sig { returns(T.nilable(String)) }
+      def execute
+        result = GitHub::API.open_graphql(GRAPHQL_QUERY, variables: { owner: userorg, name: repo })
+        return if result.nil?
 
-    links = result.dig("repository", "fundingLinks")
-    return unless links
+        links = result.dig("repository", "fundingLinks")
+        return unless links
 
-    # FIXME: links can have nothing, and thus we should return nil,
-    #        but it's nice to show that GHSponsors has the project but no data for it.
-    GitHubFundinglinksPresenter.new(result).to_s
-  end
+        # FIXME: links can have nothing, and thus we should return nil,
+        #        but it's nice to show that GHSponsors has the project but no data for it.
+        GitHubFundinglinksPresenter.new(result).to_s
+      end
 
-  sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup)) }
-  def self.try_from(url)
-    return if url.nil?
+      sig { params(url: T.nilable(String)).returns(T.nilable(GitHubSponsorsLookup)) }
+      def self.try_from(url)
+        return if url.nil?
 
-    uri = URI(url)
-    return if uri.host != "github.com"
+        uri = URI(url)
+        return if uri.host != "github.com"
 
-    userorg_repo = extract_userorg_repo(uri.path)
+        userorg_repo = extract_userorg_repo(uri.path)
 
-    GitHubSponsorsLookup.new(userorg_repo[:userorg], userorg_repo[:repo])
-  end
+        GitHubSponsorsLookup.new(userorg_repo[:userorg], userorg_repo[:repo])
+      end
 
-  sig { params(path: String).returns(T.nilable(T::Hash[Symbol, String])) }
-  def self.extract_userorg_repo(path)
-    userorg, repo = path.delete_prefix("/").split("/").take(2)
-    { userorg:, repo: repo.delete_suffix(".git") }
+      sig { params(path: String).returns(T.nilable(T::Hash[Symbol, String])) }
+      def self.extract_userorg_repo(path)
+        userorg, repo = path.delete_prefix("/").split("/").take(2)
+        { userorg:, repo: repo.delete_suffix(".git") }
+      end
+    end
   end
 end
 
-FormulaLookupMethodsResolver.instance.install_lookup_method GitHubSponsorsLookup
+FormulaLookupMethodsResolver.instance.install_lookup_method Fund::LookupMethods::GitHubSponsorsLookup

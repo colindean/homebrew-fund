@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe GitHubSponsorsLookup do
+describe Fund::LookupMethods::GitHubSponsorsLookup do
   subject(:lookup) { described_class }
 
   describe "#try_form" do

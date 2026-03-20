@@ -20,7 +20,7 @@ class FormulaLookupMethodsResolver
     @lookup_methods << cls
   end
 
-  sig { params(formula: Formula).returns(T::Hash[String, LookupMethodBase]) }
+  sig { params(formula: Formula).returns(T::Hash[String, Fund::LookupMethods::LookupMethodBase]) }
   def resolve(formula)
     data = FormulaLoader.collect_data(formula)
 

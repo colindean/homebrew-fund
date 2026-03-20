@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe StaticNamesLookup do
+describe Fund::LookupMethods::StaticNamesLookup do
   let(:essentials) { ["brew", "homebrew-fund"] }
 
   describe "#try_form" do
