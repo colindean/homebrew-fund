@@ -4,32 +4,36 @@
 # This serves as a fallback/tail lookup method to clearly state that
 # the formula doesn't have enough information to resolve a potential
 # donation method.
-class NoLookupAvailable < LookupMethodBase
-  attr_reader :url
+module Fund
+  module LookupMethods
+    class NoLookupAvailable < LookupMethodBase
+      attr_reader :url
 
-  sig { params(url: T.nilable(String)).returns(T.nilable(NoLookupAvailable)) }
-  def self.try_from(url)
-    NoLookupAvailable.new(url)
-  end
+      sig { params(url: T.nilable(String)).returns(T.nilable(NoLookupAvailable)) }
+      def self.try_from(url)
+        NoLookupAvailable.new(url)
+      end
 
-  def initialize(url)
-    super()
-    @url = url
-  end
+      def initialize(url)
+        super()
+        @url = url
+      end
 
-  def to_s
-    "no funding information lookup method available for #{@url}"
-  end
+      def to_s
+        "no funding information lookup method available for #{@url}"
+      end
 
-  def ==(other)
-    return false if other.class != self.class
+      def ==(other)
+        return false if other.class != self.class
 
-    url == other.url
-  end
+        url == other.url
+      end
 
-  def hash
-    url.hash
+      def hash
+        url.hash
+      end
+    end
   end
 end
 
-FormulaLookupMethodsResolver.instance.install_lookup_method NoLookupAvailable
+FormulaLookupMethodsResolver.instance.install_lookup_method Fund::LookupMethods::NoLookupAvailable

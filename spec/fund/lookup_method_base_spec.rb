@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe LookupMethodBase do
+describe Fund::LookupMethods::LookupMethodBase do
   subject(:lookup) { described_class }
 
   describe "#try_form" do
