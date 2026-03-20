@@ -24,7 +24,7 @@ class FundingMethodsResolver
   sig { returns(T.nilable(String)) }
   def suggest_from_static_lookup
     odebug "Checking static list"
-    possible_static = StaticNamesLookup.try_from(name)
+    possible_static = Fund::LookupMethods::StaticNamesLookup.try_from(name)
 
     return possible_static.execute.to_s if possible_static
 
@@ -70,7 +70,9 @@ class FundingMethodsResolver
     end
   end
 
-  GroupedByViability = T.type_alias { T::Hash[T::Boolean, T::Hash[String, LookupMethodBase]] }
+  GroupedByViability = T.type_alias do
+    T::Hash[T::Boolean, T::Hash[String, Fund::LookupMethods::LookupMethodBase]]
+  end
 
   sig {
     params(by_viability: GroupedByViability, formula: Formula).void
@@ -83,7 +85,7 @@ class FundingMethodsResolver
   end
 
   sig {
-    params(methods: T::Hash[String, LookupMethodBase]).returns(GroupedByViability)
+    params(methods: T::Hash[String, Fund::LookupMethods::LookupMethodBase]).returns(GroupedByViability)
   }
   def group_by_viability(methods)
     methods.to_a.group_by do |hsh|

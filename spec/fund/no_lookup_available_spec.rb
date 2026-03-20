@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe NoLookupAvailable do
+describe Fund::LookupMethods::NoLookupAvailable do
   let(:test_url) { "https://github.com/homebrew/homebrew-fund" }
 
   describe "#try_form" do
