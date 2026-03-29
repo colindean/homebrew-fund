@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "pathname"
-
 class Formula
   def initialize(name)
     @prefix = Pathname("/usr/local")
