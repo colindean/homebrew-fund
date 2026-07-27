@@ -16,24 +16,36 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Enable auto-merge for Dependabot PRs
         if: |
-          contains(fromJSON(
-            '[
-              "rspec-core",
-              "sorbet-runtime",
-              "minitest",
-              "rspec-expectations",
-              "rexml",
-              "concurrent-ruby",
-              "activesupport",
-              "bigdecimal",
-              "i18n",
-              "rspec-mocks",
-              "rspec-support",
-              "docile"
-            ]'),
-            steps.metadata.outputs.dependency-names
+          (
+            contains(fromJSON(
+              '[
+                "rspec-core",
+                "sorbet-runtime",
+                "minitest",
+                "rspec-expectations",
+                "rexml",
+                "concurrent-ruby",
+                "activesupport",
+                "bigdecimal",
+                "i18n",
+                "rspec-mocks",
+                "rspec-support",
+                "docile"
+              ]'),
+              steps.metadata.outputs.dependency-names
+            )
+            && steps.metadata.outputs.update-type == 'version-update:semver-patch'
+          ) || (
+            contains(fromJSON(
+              '[
+                "ruby/setup-ruby"
+              ]'),
+              steps.metadata.outputs.dependency-names
+            )
+            && contains(fromJson(
+                '["version-update:semver-minor", "version-update:semver-minor"]'),
+                steps.metadata.outputs.update-type)
           )
-          && steps.metadata.outputs.update-type == 'version-update:semver-patch'
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
