@@ -54,7 +54,7 @@ GEM
       sorbet-runtime
     rspec-support (3.13.7)
     securerandom (0.4.1)
-    simplecov (1.0.2)
+    simplecov (1.0.3)
     simplecov-cobertura (4.0.0)
       rexml
       simplecov (~> 1.0)
